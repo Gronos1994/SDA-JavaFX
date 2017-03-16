@@ -6,7 +6,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CompanyCreateController">
    <children>
       <GridPane prefHeight="375.0" prefWidth="600.0">
@@ -45,6 +44,12 @@
             <RadioButton fx:id="squereRadio" mnemonicParsing="false" onAction="#choosePrefixOnAction" text="Plac" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <RadioButton fx:id="avenueRadio" mnemonicParsing="false" onAction="#choosePrefixOnAction" text="Aleja" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
             <Button fx:id="addCompanyButton" mnemonicParsing="false" onAction="#addCompanyOnAction" text="Dodaj" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="8" />
+            <Button fx:id="createPDF" mnemonicParsing="false" onAction="#createPDFOnAction" prefHeight="25.0" prefWidth="82.0" text="PDF" textAlignment="CENTER" GridPane.rowIndex="8" />
+            <Button fx:id="validateButton" mnemonicParsing="false" onAction="#validateOnAction" prefHeight="25.0" prefWidth="110.0" text="Validate Form" textAlignment="CENTER" GridPane.halignment="RIGHT" GridPane.rowIndex="8">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Button>
          </children>
       </GridPane>
    </children>

@@ -5,16 +5,18 @@ package controller;
  */
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.event.*;
-import javafx.scene.control.ToggleGroup;
+import pdf.PdfFactory;
 import pl.sdaacademy.model.Adress;
 import pl.sdaacademy.model.Company;
 import pl.sdaacademy.model.StreetPrefix;
+import pl.sdaacademy.service.DataService;
 
-public class CompanyCreateController {
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class CompanyCreateController extends Controller {
 
     @FXML
     private TextField streetField;
@@ -72,13 +74,12 @@ public class CompanyCreateController {
 
     }
 
+
     @FXML
-    void addCompanyOnAction(ActionEvent event) {
+    Company addCompanyOnAction() {
         Company company = new Company();
         company.setName(nameField.getText());
         Adress adress = new Adress();
-        adress.setStreetPrefix(streetPrefix);
-        adress.setStreetPrefix(streetPrefix);
         adress.setStreetPrefix(streetPrefix);
         adress.setStreetName(streetField.getText());
         adress.setHouseNumber(houseNumberField.getText());
@@ -87,8 +88,12 @@ public class CompanyCreateController {
         adress.setCity(cityField.getText());
         company.setAdress(adress);
         company.setNip(nipField.getText());
-        System.out.println(company);
+        DataService dataService = new DataService();
+        validatePostalCode();
+        dataService.printOutCompanyInfo(company);
 
+
+        return company;
     }
 
     @FXML
@@ -97,7 +102,31 @@ public class CompanyCreateController {
         streetRadio.setToggleGroup(group);
         squereRadio.setToggleGroup(group);
         avenueRadio.setToggleGroup(group);
+    }
 
+    private void validatePostalCode() {
+        Pattern zipPattern = Pattern.compile("(^\\d{2}-\\d{3}$)");
+        Matcher zipMatcher = zipPattern.matcher(postalCodeField.getText());
+        if (zipMatcher.find()) {
+            String zip = zipMatcher.group(1);
+            showConfirmationAlert("Postal code is ok");
+        } else {
+            showErrorAllert("Postal code is wrong");
+        }
+    }
+
+
+    @FXML
+    void createPDFOnAction(ActionEvent event) {
+        PdfFactory pdfFactory = new PdfFactory();
+        pdfFactory.addCompanyToPDF(addCompanyOnAction());
+
+
+    }
+
+    @FXML
+    void validateOnAction(ActionEvent event) {
+        validatePostalCode();
     }
 }
 

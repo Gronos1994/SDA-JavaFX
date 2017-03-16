@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import pl.sdaacademy.model.User;
 import pl.sdaacademy.service.UserService;
 
-public class LoginController {
+public class LoginController extends Controller {
 
     @FXML
     private Button submit;
@@ -38,12 +38,11 @@ public class LoginController {
         user.setPassword(passwordField.getText());
         boolean flag = userService.authenticate(user);
         if (flag) {
-            Alert alert1 = new Alert(Alert.AlertType.INFORMATION, "Zalogowano");
-            alert1.show();
+            showErrorAllert("Zalogowano");
 
         } else {
-            Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "Logowanie nie powiodło się");
-            alert2.show();
+            showErrorAllert("Nie zalogowano");
+
         }
 
 

@@ -7,8 +7,10 @@ import pl.sdaacademy.xmlFactory.XMLFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 /**
  * Created by k.czechowski83@gmail.com on 2017-03-13.
@@ -47,6 +49,32 @@ public class DataService {
         result.add(company.getName());
         result.add(company.getAdress().toString());
         result.add(company.getNip());
+        return result;
+    }
+
+    public void printOutCompanyInfo(Company company) {
+        List<String> listInfo = printCompanyInfo(company);
+        for (String line : listInfo) {
+            System.out.println(line);
+        }
+    }
+    public static Properties loadProperties(){
+        Properties result = new Properties();
+        InputStream inputStream;
+        inputStream = DataService.class.getClassLoader().getResourceAsStream("data.properties");
+        try {
+            result.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if (inputStream != null){
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return result;
     }
 
